@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://i1awvm5vovsj"]
+
+[ext_resource type="PackedScene" uid="uid://fvdyn4kougmt" path="res://assets/characters/human_male_base.blend" id="1_v06ki"]
+[ext_resource type="Script" uid="uid://bm71r7p6lhn7y" path="res://cm/players/daniel/scripts/move_controller.gd" id="2_pi8lr"]
+[ext_resource type="Script" uid="uid://by5aok7jqltga" path="res://cm/players/daniel/scripts/animator.gd" id="3_vvcpb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pi8lr"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vvcpb"]
+height = 0.12
+radius = 0.39794922
+
+[node name="Daniel" type="CharacterBody3D" unique_id=1017053502]
+
+[node name="human_male_base" parent="." unique_id=22068163 instance=ExtResource("1_v06ki")]
+
+[node name="Skeleton3D" parent="human_male_base/Armature" parent_id_path=PackedInt32Array(22068163, 1842512758) index="0" unique_id=647691367]
+bones/0/position = Vector3(0, -1.0448918, 0)
+bones/1/position = Vector3(1.1102237e-15, 0.9567639, 0.038150787)
+bones/1/rotation = Quaternion(0.048147704, 1.1906114e-07, 5.9436456e-09, 0.9988402)
+bones/2/rotation = Quaternion(-0.03756803, -1.1680564e-09, -2.5207678e-08, 0.9992941)
+bones/3/rotation = Quaternion(0.0387758, -1.7756846e-14, 9.2448715e-09, 0.999248)
+bones/4/rotation = Quaternion(0.7018723, 0.29257134, -0.6332986, -0.14391051)
+bones/5/rotation = Quaternion(0.041633666, -0.028411444, 0.18607336, 0.9812422)
+bones/8/rotation = Quaternion(0.68713075, 0.068508655, 0.6939887, 0.20380774)
+bones/9/rotation = Quaternion(0.039716307, 0.030657714, -0.23827535, 0.9699008)
+bones/12/rotation = Quaternion(0.00021641648, 0.25048515, 0.96812004, -0.0008373976)
+bones/13/rotation = Quaternion(-0.0014263048, 1.1919671e-05, 0.006647973, 0.99997693)
+bones/14/rotation = Quaternion(0.61992973, -2.0514035e-08, -0.002215189, 0.7846542)
+bones/15/rotation = Quaternion(-5.516123e-05, 0.06371356, 0.9979679, 0.0008632863)
+bones/16/rotation = Quaternion(-0.4140461, -0.003469015, -0.006051276, 0.91022927)
+bones/17/rotation = Quaternion(0.6050311, -0.0001804613, 0.0023903619, 0.79619825)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1087940176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_pi8lr")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1793497115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11948347, 0)
+shape = SubResource("CylinderShape3D_vvcpb")
+debug_color = Color(0.903702, 0.2355054, 0.50602925, 0.41960785)
+
+[node name="MoveController" type="Node" parent="." unique_id=1664967693]
+script = ExtResource("2_pi8lr")
+
+[node name="Animator" type="Node" parent="." unique_id=1786818120]
+script = ExtResource("3_vvcpb")
+
+[editable path="human_male_base"]

@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://e7w8g16psayl"]
+
+[ext_resource type="Script" uid="uid://l72nwwe6jys3" path="res://game_types/first_person_camera/templates/scripts/fps_player_controller.gd" id="1_d71ai"]
+[ext_resource type="Script" uid="uid://634u4y67h68d" path="res://game_types/first_person_camera/components/FPSCameraController.gd" id="2_yncka"]
+[ext_resource type="PackedScene" uid="uid://bqabuvkjwllqx" path="res://cm/players/chain_link.tscn" id="3_b7jdr"]
+[ext_resource type="PackedScene" uid="uid://cl1xo61revb7u" path="res://cm/players/small_chain_link.tscn" id="4_bgojk"]
+[ext_resource type="PackedScene" uid="uid://i1awvm5vovsj" path="res://cm/players/daniel.tscn" id="5_uk8s3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m51hy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_80o7q"]
+height = 0.12
+radius = 0.39794922
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80o7q"]
+albedo_color = Color(0.77254903, 0.101960786, 0.09803922, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ohbhn"]
+material = SubResource("StandardMaterial3D_80o7q")
+
+[node name="Player" type="Node3D" unique_id=877840048]
+
+[node name="Mira" type="CharacterBody3D" parent="." unique_id=1646083726 groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8000001)
+collision_layer = 0
+script = ExtResource("1_d71ai")
+
+[node name="Components" type="Node" parent="Mira" unique_id=1266873005]
+
+[node name="FPSCameraController" type="Node" parent="Mira/Components" unique_id=689545471 node_paths=PackedStringArray("camera", "body")]
+script = ExtResource("2_yncka")
+camera = NodePath("../../MainCamera")
+min_angle_degrees = -90.0
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://634u4y67h68d"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mira" unique_id=796446676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_m51hy")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Mira" unique_id=2033949980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11948347, 0)
+shape = SubResource("CylinderShape3D_80o7q")
+debug_color = Color(0.903702, 0.2355054, 0.50602925, 0.41960785)
+
+[node name="MainCamera" type="Camera3D" parent="Mira" unique_id=23520367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Raycasts" type="Node3D" parent="Mira" unique_id=826281035]
+
+[node name="CrouchChecker" type="RayCast3D" parent="Mira/Raycasts" unique_id=2064842209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.094720125, 0)
+target_position = Vector3(0, 2, 0)
+hit_from_inside = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Mira" unique_id=1266096764]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Mira/CanvasLayer" unique_id=1522188488]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Mira/CanvasLayer/SubViewportContainer" unique_id=1464961114]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="SubCamera" type="Camera3D" parent="Mira/CanvasLayer/SubViewportContainer/SubViewport" unique_id=1351528160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+cull_mask = 524288
+
+[node name="Mesh" type="MeshInstance3D" parent="Mira" unique_id=627704302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ohbhn")
+
+[node name="Chainlink" type="Node3D" parent="Mira" unique_id=1360014518]
+
+[node name="PinJoint3D" type="PinJoint3D" parent="Mira/Chainlink" unique_id=1034585695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.40000004)
+node_a = NodePath("../..")
+node_b = NodePath("../ChainLink")
+
+[node name="ChainLink" parent="Mira/Chainlink" unique_id=941327975 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -0.4)
+
+[node name="PinJoint3D2" type="PinJoint3D" parent="Mira/Chainlink" unique_id=2034086539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1.2)
+node_a = NodePath("../ChainLink")
+node_b = NodePath("../ChainLink2")
+
+[node name="ChainLink2" parent="Mira/Chainlink" unique_id=427614600 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -1.4)
+
+[node name="PinJoint3D3" type="PinJoint3D" parent="Mira/Chainlink" unique_id=2105981304]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -2.2)
+node_a = NodePath("../ChainLink2")
+node_b = NodePath("../ChainLink3")
+
+[node name="ChainLink3" parent="Mira/Chainlink" unique_id=1602010641 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -2.4)
+
+[node name="PinJoint3D4" type="PinJoint3D" parent="Mira/Chainlink" unique_id=682085186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -3.2)
+node_a = NodePath("../ChainLink3")
+node_b = NodePath("../ChainLink4")
+
+[node name="ChainLink4" parent="Mira/Chainlink" unique_id=1778345915 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -3.4)
+
+[node name="PinJoint3D5" type="PinJoint3D" parent="Mira/Chainlink" unique_id=1069795579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -4.2000003)
+node_a = NodePath("../ChainLink4")
+node_b = NodePath("../ChainLink5")
+
+[node name="ChainLink5" parent="Mira/Chainlink" unique_id=903111492 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -4.4)
+
+[node name="PinJoint3D6" type="PinJoint3D" parent="Mira/Chainlink" unique_id=880960365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.267024)
+node_a = NodePath("../ChainLink5")
+node_b = NodePath("../ChainLink6")
+
+[node name="ChainLink6" parent="Mira/Chainlink" unique_id=1027021215 instance=ExtResource("4_bgojk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.4)
+
+[node name="PinJoint3D7" type="PinJoint3D" parent="Mira/Chainlink" unique_id=1858120746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.467024)
+node_a = NodePath("../ChainLink6")
+node_b = NodePath("../../../Daniel")
+
+[node name="Daniel" parent="." unique_id=1017053502 instance=ExtResource("5_uk8s3")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.00523353, 0, -7.307838)
+
+[node name="Skeleton3D" parent="Daniel/human_male_base/Armature" parent_id_path=PackedInt32Array(1017053502, 22068163, 1842512758) index="0" unique_id=647691367]
+bones/1/rotation = Quaternion(0.034382425, 1.1913171e-07, 4.3028128e-09, 0.9994087)
+bones/2/rotation = Quaternion(-0.037568033, -1.1680471e-09, -2.5207676e-08, 0.9992941)
+bones/3/rotation = Quaternion(0.0387758, -2.1263366e-14, 9.244872e-09, 0.999248)
+bones/4/rotation = Quaternion(0.7162047, 0.06801793, -0.69334245, 0.041238204)
+bones/5/rotation = Quaternion(0.04163366, -0.028411439, 0.18607336, 0.9812422)
+bones/8/rotation = Quaternion(0.7152151, -0.087047026, 0.691908, 0.046406098)
+bones/9/rotation = Quaternion(0.0397163, 0.030657712, -0.23827535, 0.9699008)
+bones/12/rotation = Quaternion(3.6870217e-05, 0.04295359, 0.9990767, -0.0008642114)
+bones/13/rotation = Quaternion(-0.0014263073, 1.1919491e-05, 0.0066479724, 0.99997693)
+bones/14/rotation = Quaternion(0.61992973, -2.1145846e-08, -0.0022151892, 0.7846542)
+bones/15/rotation = Quaternion(-7.190471e-05, 0.083099276, 0.99654096, 0.00086205074)
+bones/16/rotation = Quaternion(-0.0027291265, -2.2974045e-05, -0.0066480315, 0.99997425)
+bones/17/rotation = Quaternion(0.6050311, -0.00018046101, 0.0023903626, 0.79619825)
+
+[node name="MoveController" parent="Daniel" index="3" unique_id=1664967693 node_paths=PackedStringArray("mira")]
+mira = NodePath("../../Mira")
+
+[editable path="Daniel"]
+[editable path="Daniel/human_male_base"]

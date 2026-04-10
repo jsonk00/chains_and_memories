@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://dag4a30eqnobs"]
+
+[ext_resource type="Script" uid="uid://l72nwwe6jys3" path="res://game_types/first_person_camera/templates/scripts/fps_player_controller.gd" id="1_j28u0"]
+[ext_resource type="Script" uid="uid://634u4y67h68d" path="res://game_types/first_person_camera/components/FPSCameraController.gd" id="1_m51hy"]
+[ext_resource type="Script" uid="uid://ch6bej8jti1e6" path="res://game_types/first_person_camera/scripts/states/state_machines/MovementSM.gd" id="3_4l6d4"]
+[ext_resource type="Script" uid="uid://b8x2837gjumxb" path="res://game_types/first_person_camera/scripts/states/PlayerIdle.gd" id="4_oxl5p"]
+[ext_resource type="Script" uid="uid://v2igrr8j13vs" path="res://game_types/first_person_camera/scripts/states/PlayerWalking.gd" id="5_np71i"]
+[ext_resource type="Script" uid="uid://wudj0j5341qh" path="res://game_types/first_person_camera/scripts/states/state_machines/AirborneSM.gd" id="6_np71i"]
+[ext_resource type="Script" uid="uid://b8yihulshboi6" path="res://game_types/first_person_camera/scripts/states/PlayerSprinting.gd" id="6_tk0gt"]
+[ext_resource type="Script" uid="uid://duikrtvs8v3ey" path="res://game_types/first_person_camera/scripts/states/PlayerJumping.gd" id="7_04y4n"]
+[ext_resource type="Script" uid="uid://bhtbv3222wj7r" path="res://game_types/first_person_camera/scripts/states/PlayerCrouching.gd" id="7_80o7q"]
+[ext_resource type="Script" uid="uid://kq3t8uiqqvkp" path="res://game_types/first_person_camera/scripts/states/PlayerGrounded.gd" id="8_04y4n"]
+[ext_resource type="Script" uid="uid://4mstf4elab58" path="res://game_types/first_person_camera/scripts/states/PlayerFalling.gd" id="9_oljx3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m51hy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_80o7q"]
+height = 0.12
+radius = 0.39794922
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80o7q"]
+albedo_color = Color(0.77254903, 0.101960786, 0.09803922, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ohbhn"]
+material = SubResource("StandardMaterial3D_80o7q")
+
+[node name="FpsPlayerController" type="CharacterBody3D" unique_id=1033056940 node_paths=PackedStringArray("state_machines") groups=["player"]]
+collision_layer = 0
+script = ExtResource("1_j28u0")
+state_machines = NodePath("StateMachines")
+
+[node name="Components" type="Node" parent="." unique_id=2089096672]
+
+[node name="FPSCameraController" type="Node" parent="Components" unique_id=1274336887 node_paths=PackedStringArray("camera", "body")]
+script = ExtResource("1_m51hy")
+camera = NodePath("../../MainCamera")
+min_angle_degrees = -90.0
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://634u4y67h68d"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=250998464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_m51hy")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1186009524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11948347, 0)
+shape = SubResource("CylinderShape3D_80o7q")
+debug_color = Color(0.903702, 0.2355054, 0.50602925, 0.41960785)
+
+[node name="MainCamera" type="Camera3D" parent="." unique_id=1690577004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="StateMachines" type="Node" parent="." unique_id=824650605]
+
+[node name="PlanarMovementSM" type="Node" parent="StateMachines" unique_id=1933880650 node_paths=PackedStringArray("body", "current_state")]
+script = ExtResource("3_4l6d4")
+body = NodePath("../..")
+current_state = NodePath("PlayerIdle")
+
+[node name="PlayerIdle" type="Node" parent="StateMachines/PlanarMovementSM" unique_id=1945158058]
+script = ExtResource("4_oxl5p")
+
+[node name="PlayerWalking" type="Node" parent="StateMachines/PlanarMovementSM" unique_id=611593378]
+script = ExtResource("5_np71i")
+
+[node name="PlayerSprinting" type="Node" parent="StateMachines/PlanarMovementSM" unique_id=148059374]
+script = ExtResource("6_tk0gt")
+
+[node name="PlayerCrouching" type="Node" parent="StateMachines/PlanarMovementSM" unique_id=746435714 node_paths=PackedStringArray("collision_shape", "feet_shape", "main_cam", "raycast_check")]
+script = ExtResource("7_80o7q")
+collision_shape = NodePath("../../../CollisionShape3D")
+feet_shape = NodePath("../../../CollisionShape3D2")
+main_cam = NodePath("../../../MainCamera")
+raycast_check = NodePath("../../../Raycasts/CrouchChecker")
+
+[node name="AirborneSM" type="Node" parent="StateMachines" unique_id=1005112879 node_paths=PackedStringArray("body", "current_state")]
+script = ExtResource("6_np71i")
+jump_height = 5.0
+body = NodePath("../..")
+current_state = NodePath("PlayerGrounded")
+metadata/_custom_type_script = "uid://brou7jmoekk1y"
+
+[node name="PlayerJumping" type="Node" parent="StateMachines/AirborneSM" unique_id=962236302]
+script = ExtResource("7_04y4n")
+
+[node name="PlayerGrounded" type="Node" parent="StateMachines/AirborneSM" unique_id=1161931411]
+script = ExtResource("8_04y4n")
+
+[node name="PlayerFalling" type="Node" parent="StateMachines/AirborneSM" unique_id=851940237]
+script = ExtResource("9_oljx3")
+
+[node name="Raycasts" type="Node3D" parent="." unique_id=446828115]
+
+[node name="CrouchChecker" type="RayCast3D" parent="Raycasts" unique_id=1180100638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.094720125, 0)
+target_position = Vector3(0, 2, 0)
+hit_from_inside = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1869682787]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=1145069145]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=1648844826]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="SubCamera" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=901876895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+cull_mask = 524288
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=357904959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ohbhn")
