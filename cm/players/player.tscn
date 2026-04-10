@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://634u4y67h68d" path="res://game_types/first_person_camera/components/FPSCameraController.gd" id="2_yncka"]
 [ext_resource type="PackedScene" uid="uid://bqabuvkjwllqx" path="res://cm/players/chain_link.tscn" id="3_b7jdr"]
 [ext_resource type="PackedScene" uid="uid://cl1xo61revb7u" path="res://cm/players/small_chain_link.tscn" id="4_bgojk"]
+[ext_resource type="Script" uid="uid://c1jqsrsc7u78r" path="res://cm/players/daniel/scripts/action_controller.gd" id="4_yncka"]
+[ext_resource type="Script" uid="uid://cthvd5ckvgjs5" path="res://cm/players/daniel/scripts/sword_hitbox.gd" id="5_b7jdr"]
 [ext_resource type="PackedScene" uid="uid://i1awvm5vovsj" path="res://cm/players/daniel.tscn" id="5_uk8s3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m51hy"]
@@ -17,6 +19,12 @@ albedo_color = Color(0.77254903, 0.101960786, 0.09803922, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ohbhn"]
 material = SubResource("StandardMaterial3D_80o7q")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yncka"]
+size = Vector3(0.24975586, 0.3408203, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b7jdr"]
+radius = 0.3053333
 
 [node name="Player" type="Node3D" unique_id=877840048]
 
@@ -78,65 +86,10 @@ cull_mask = 524288
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_ohbhn")
 
-[node name="Chainlink" type="Node3D" parent="Mira" unique_id=1360014518]
-
-[node name="PinJoint3D" type="PinJoint3D" parent="Mira/Chainlink" unique_id=1034585695]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.40000004)
-node_a = NodePath("../..")
-node_b = NodePath("../ChainLink")
-
-[node name="ChainLink" parent="Mira/Chainlink" unique_id=941327975 instance=ExtResource("3_b7jdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -0.4)
-
-[node name="PinJoint3D2" type="PinJoint3D" parent="Mira/Chainlink" unique_id=2034086539]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1.2)
-node_a = NodePath("../ChainLink")
-node_b = NodePath("../ChainLink2")
-
-[node name="ChainLink2" parent="Mira/Chainlink" unique_id=427614600 instance=ExtResource("3_b7jdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -1.4)
-
-[node name="PinJoint3D3" type="PinJoint3D" parent="Mira/Chainlink" unique_id=2105981304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -2.2)
-node_a = NodePath("../ChainLink2")
-node_b = NodePath("../ChainLink3")
-
-[node name="ChainLink3" parent="Mira/Chainlink" unique_id=1602010641 instance=ExtResource("3_b7jdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -2.4)
-
-[node name="PinJoint3D4" type="PinJoint3D" parent="Mira/Chainlink" unique_id=682085186]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -3.2)
-node_a = NodePath("../ChainLink3")
-node_b = NodePath("../ChainLink4")
-
-[node name="ChainLink4" parent="Mira/Chainlink" unique_id=1778345915 instance=ExtResource("3_b7jdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -3.4)
-
-[node name="PinJoint3D5" type="PinJoint3D" parent="Mira/Chainlink" unique_id=1069795579]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -4.2000003)
-node_a = NodePath("../ChainLink4")
-node_b = NodePath("../ChainLink5")
-
-[node name="ChainLink5" parent="Mira/Chainlink" unique_id=903111492 instance=ExtResource("3_b7jdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -4.4)
-
-[node name="PinJoint3D6" type="PinJoint3D" parent="Mira/Chainlink" unique_id=880960365]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.267024)
-node_a = NodePath("../ChainLink5")
-node_b = NodePath("../ChainLink6")
-
-[node name="ChainLink6" parent="Mira/Chainlink" unique_id=1027021215 instance=ExtResource("4_bgojk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.4)
-
-[node name="PinJoint3D7" type="PinJoint3D" parent="Mira/Chainlink" unique_id=1858120746]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.467024)
-node_a = NodePath("../ChainLink6")
-node_b = NodePath("../../../Daniel")
-
 [node name="Daniel" parent="." unique_id=1017053502 instance=ExtResource("5_uk8s3")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.00523353, 0, -7.307838)
 
-[node name="Skeleton3D" parent="Daniel/human_male_base/Armature" parent_id_path=PackedInt32Array(1017053502, 22068163, 1842512758) index="0" unique_id=647691367]
+[node name="Skeleton3D" parent="Daniel/human_male_base/Armature" parent_id_path=PackedInt32Array(1017053502, 22068163, 1751988451) index="0" unique_id=1894558543]
 bones/1/rotation = Quaternion(0.034382425, 1.1913171e-07, 4.3028128e-09, 0.9994087)
 bones/2/rotation = Quaternion(-0.037568033, -1.1680471e-09, -2.5207676e-08, 0.9992941)
 bones/3/rotation = Quaternion(0.0387758, -2.1263366e-14, 9.244872e-09, 0.999248)
@@ -153,6 +106,85 @@ bones/17/rotation = Quaternion(0.6050311, -0.00018046101, 0.0023903626, 0.796198
 
 [node name="MoveController" parent="Daniel" index="3" unique_id=1664967693 node_paths=PackedStringArray("mira")]
 mira = NodePath("../../Mira")
+
+[node name="ActionController" type="Node" parent="Daniel" unique_id=627347845 node_paths=PackedStringArray("animator")]
+script = ExtResource("4_yncka")
+animator = NodePath("../human_male_base/AnimationPlayer")
+
+[node name="SwordHitbox" type="Area3D" parent="Daniel" unique_id=1631038463]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+priority = 1
+script = ExtResource("5_b7jdr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Daniel/SwordHitbox" unique_id=1093379150]
+transform = Transform3D(0.99999475, 0, 0, 0, 1, 0, 0, 0, 0.99999475, 0, 1.1923587, 0.5475373)
+shape = SubResource("BoxShape3D_yncka")
+debug_color = Color(0.92454886, 0.2365419, 0.3650747, 0.41960785)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Daniel/SwordHitbox" unique_id=2096601271]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 1.183552, 1.0861735)
+shape = SubResource("SphereShape3D_b7jdr")
+debug_color = Color(0.88461745, 0.289533, 0.4340044, 0.41960785)
+
+[node name="Chainlink" type="Node3D" parent="." unique_id=1360014518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8000001)
+
+[node name="PinJoint3D" type="PinJoint3D" parent="Chainlink" unique_id=1034585695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.40000004)
+node_a = NodePath("../../Mira")
+node_b = NodePath("../ChainLink")
+
+[node name="ChainLink" parent="Chainlink" unique_id=941327975 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -0.4)
+
+[node name="PinJoint3D2" type="PinJoint3D" parent="Chainlink" unique_id=2034086539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1.2)
+node_a = NodePath("../ChainLink")
+node_b = NodePath("../ChainLink2")
+
+[node name="ChainLink2" parent="Chainlink" unique_id=427614600 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -1.4)
+
+[node name="PinJoint3D3" type="PinJoint3D" parent="Chainlink" unique_id=2105981304]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -2.2)
+node_a = NodePath("../ChainLink2")
+node_b = NodePath("../ChainLink3")
+
+[node name="ChainLink3" parent="Chainlink" unique_id=1602010641 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -2.4)
+
+[node name="PinJoint3D4" type="PinJoint3D" parent="Chainlink" unique_id=682085186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -3.2)
+node_a = NodePath("../ChainLink3")
+node_b = NodePath("../ChainLink4")
+
+[node name="ChainLink4" parent="Chainlink" unique_id=1778345915 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -3.4)
+
+[node name="PinJoint3D5" type="PinJoint3D" parent="Chainlink" unique_id=1069795579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -4.2000003)
+node_a = NodePath("../ChainLink4")
+node_b = NodePath("../ChainLink5")
+
+[node name="ChainLink5" parent="Chainlink" unique_id=903111492 instance=ExtResource("3_b7jdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1999999, -4.4)
+
+[node name="PinJoint3D6" type="PinJoint3D" parent="Chainlink" unique_id=880960365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.267024)
+node_a = NodePath("../ChainLink5")
+node_b = NodePath("../ChainLink6")
+
+[node name="ChainLink6" parent="Chainlink" unique_id=1027021215 instance=ExtResource("4_bgojk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.4)
+
+[node name="PinJoint3D7" type="PinJoint3D" parent="Chainlink" unique_id=1858120746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -5.467024)
+node_a = NodePath("../ChainLink6")
+node_b = NodePath("../../Daniel")
+
+[connection signal="animation_finished" from="Daniel/human_male_base/AnimationPlayer" to="Daniel/ActionController" method="_on_animation_player_animation_finished"]
 
 [editable path="Daniel"]
 [editable path="Daniel/human_male_base"]
