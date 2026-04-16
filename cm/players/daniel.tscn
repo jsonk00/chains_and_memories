@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://i1awvm5vovsj"]
 
 [ext_resource type="PackedScene" uid="uid://fvdyn4kougmt" path="res://assets/characters/human_male_base.blend" id="1_v06ki"]
+[ext_resource type="PackedScene" uid="uid://c3xd6ulaoijqe" path="res://cm/players/daniel/blend/knight_shoes.blend" id="2_56a5q"]
 [ext_resource type="Script" uid="uid://bm71r7p6lhn7y" path="res://cm/players/daniel/scripts/move_controller.gd" id="2_pi8lr"]
 [ext_resource type="Script" uid="uid://by5aok7jqltga" path="res://cm/players/daniel/scripts/animator.gd" id="3_vvcpb"]
 
@@ -14,22 +15,40 @@ radius = 0.39794922
 
 [node name="human_male_base" parent="." unique_id=22068163 instance=ExtResource("1_v06ki")]
 
-[node name="Skeleton3D" parent="human_male_base/Armature" parent_id_path=PackedInt32Array(22068163, 1842512758) index="0" unique_id=647691367]
+[node name="Skeleton3D" parent="human_male_base/Armature" parent_id_path=PackedInt32Array(22068163, 1088762867) index="0" unique_id=367036151]
 bones/0/position = Vector3(0, -1.0448918, 0)
 bones/1/position = Vector3(1.1102237e-15, 0.9567639, 0.038150787)
-bones/1/rotation = Quaternion(0.048147704, 1.1906114e-07, 5.9436456e-09, 0.9988402)
-bones/2/rotation = Quaternion(-0.03756803, -1.1680564e-09, -2.5207678e-08, 0.9992941)
-bones/3/rotation = Quaternion(0.0387758, -1.7756846e-14, 9.2448715e-09, 0.999248)
-bones/4/rotation = Quaternion(0.7018723, 0.29257134, -0.6332986, -0.14391051)
-bones/5/rotation = Quaternion(0.041633666, -0.028411444, 0.18607336, 0.9812422)
-bones/8/rotation = Quaternion(0.68713075, 0.068508655, 0.6939887, 0.20380774)
-bones/9/rotation = Quaternion(0.039716307, 0.030657714, -0.23827535, 0.9699008)
-bones/12/rotation = Quaternion(0.00021641648, 0.25048515, 0.96812004, -0.0008373976)
-bones/13/rotation = Quaternion(-0.0014263048, 1.1919671e-05, 0.006647973, 0.99997693)
-bones/14/rotation = Quaternion(0.61992973, -2.0514035e-08, -0.002215189, 0.7846542)
-bones/15/rotation = Quaternion(-5.516123e-05, 0.06371356, 0.9979679, 0.0008632863)
-bones/16/rotation = Quaternion(-0.4140461, -0.003469015, -0.006051276, 0.91022927)
-bones/17/rotation = Quaternion(0.6050311, -0.0001804613, 0.0023903619, 0.79619825)
+bones/1/rotation = Quaternion(0.034382425, 1.1913171e-07, 4.3028128e-09, 0.9994087)
+bones/2/rotation = Quaternion(-0.037568033, -1.1680471e-09, -2.5207676e-08, 0.9992941)
+bones/3/rotation = Quaternion(0.0387758, -2.1263366e-14, 9.244872e-09, 0.999248)
+bones/4/rotation = Quaternion(0.7162047, 0.06801793, -0.69334245, 0.041238204)
+bones/5/rotation = Quaternion(0.04163366, -0.028411439, 0.18607336, 0.9812422)
+bones/6/rotation = Quaternion(0.08428459, -0.011036495, 0.10097523, 0.9912509)
+bones/8/rotation = Quaternion(0.7152151, -0.087047026, 0.691908, 0.046406098)
+bones/9/rotation = Quaternion(0.0397163, 0.030657712, -0.23827535, 0.9699008)
+bones/10/rotation = Quaternion(0.08428458, 0.0110364845, -0.10097514, 0.9912509)
+bones/12/rotation = Quaternion(3.6870217e-05, 0.04295359, 0.9990767, -0.0008642114)
+bones/13/rotation = Quaternion(-0.0014263073, 1.1919491e-05, 0.0066479724, 0.99997693)
+bones/14/rotation = Quaternion(0.61992973, -2.1145846e-08, -0.0022151892, 0.7846542)
+bones/15/rotation = Quaternion(-7.190471e-05, 0.083099276, 0.99654096, 0.00086205074)
+bones/16/rotation = Quaternion(-0.0027291265, -2.2974045e-05, -0.0066480315, 0.99997425)
+bones/17/rotation = Quaternion(0.6050311, -0.00018046101, 0.0023903626, 0.79619825)
+
+[node name="ShoesLeft" type="BoneAttachment3D" parent="human_male_base/Armature/Skeleton3D" index="1" unique_id=2055247612]
+transform = Transform3D(-0.99992955, 2.0809546e-07, -0.011871544, -0.01158751, -0.21745256, 0.9760017, -0.002581361, 0.97609216, 0.2174428, 0.10639067, -0.9986026, 0.014374582)
+bone_name = "foot.l"
+bone_idx = 14
+
+[node name="knight_shoes" parent="human_male_base/Armature/Skeleton3D/ShoesLeft" unique_id=37532110 instance=ExtResource("2_56a5q")]
+transform = Transform3D(0.4999079, -0.0065766703, 0.0069875065, 0.005649255, -0.09259741, -0.49131843, 0.007756532, 0.49130684, -0.092506096, -0.00039269024, 0.08907181, -0.039564155)
+
+[node name="ShoesRight" type="BoneAttachment3D" parent="human_male_base/Armature/Skeleton3D" index="2" unique_id=1901902332]
+transform = Transform3D(-0.9999296, -1.16609016e-07, 0.0118717905, 0.0116820205, -0.17809509, 0.98394376, 0.002114289, 0.98403394, 0.17809063, -0.10639079, -0.9947171, 0.084829465)
+bone_name = "foot.r"
+bone_idx = 17
+
+[node name="knight_shoes" parent="human_male_base/Armature/Skeleton3D/ShoesRight" unique_id=779828873 instance=ExtResource("2_56a5q")]
+transform = Transform3D(0.4999079, -0.0065766703, 0.0069875065, 0.005649255, -0.09259741, -0.49131843, 0.007756532, 0.49130684, -0.092506096, -0.00039269024, 0.08907181, -0.039564155)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1087940176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
